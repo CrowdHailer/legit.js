@@ -1,0 +1,28 @@
+{
+  "name": "legit",
+  "version": "0.1.0",
+  "description": "A minimal JavaScript testing framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CrowdHailer/legit.js.git"
+  },
+  "keywords": [
+    "testing",
+    "test",
+    "tdd",
+    "asynchronous",
+    "functional",
+    "browser",
+    "server"
+  ],
+  "author": "Peter Saxton",
+  "license": "SEE LICENSE IN ./LICENSE",
+  "bugs": {
+    "url": "https://github.com/CrowdHailer/legit.js/issues"
+  },
+  "homepage": "https://github.com/CrowdHailer/legit.js#readme"
+}
