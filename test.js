@@ -53,20 +53,31 @@ var specification = {
 }
 
 var reporter = {
-  'PASSED': chalk.green('.'),
-  'FAILED': chalk.red('F'),
-  'ERRORED': chalk.red('E'),
-  'SKIPPED': chalk.yellow('S')
+  prefix: function () {
+    process.stdout.write('\n   ')
+  },
+  push: function (result) {
+    var str = this.constants[result.outcome] || ''
+    process.stdout.write(str)
+  },
+  suffix: function () {
+    process.stdout.write('\n\n')
+  },
+  constants: {
+    'PASSED': chalk.green('.'),
+    'FAILED': chalk.red('F'),
+    'ERRORED': chalk.red('E'),
+    'SKIPPED': chalk.yellow('S')
+  }
 }
 
-process.stdout.write('\n   ')
+reporter.prefix()
 var testNames = Object.keys(specification)
 testNames.map(function (name) {
   var test = specification[name]
   var results = runTest(name, test)
   results.forEach(function (result) {
-    process.stdout.write(reporter[result.outcome] || '')
+    reporter.push(result)
   })
 })
-process.stdout.write('\n')
-process.stdout.write('\n')
+reporter.suffix()
