@@ -4,7 +4,7 @@
   "description": "A minimal JavaScript testing framework",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",
@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/CrowdHailer/legit.js/issues"
   },
-  "homepage": "https://github.com/CrowdHailer/legit.js#readme"
+  "homepage": "https://github.com/CrowdHailer/legit.js#readme",
+  "dependencies": {
+    "chalk": "^1.1.3"
+  }
 }
