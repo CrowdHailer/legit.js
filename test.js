@@ -1,10 +1,10 @@
 const chalk = require('chalk')
 
-function assert (condition) {
+function assert (condition, description) {
   if (condition) {
     return {outcome: 'PASSED'}
   } else {
-    return {outcome: 'FAILED'}
+    return {outcome: 'FAILED', message: description || 'assertion invalid'}
   }
 }
 
@@ -22,7 +22,7 @@ function runTest (name, test) {
       output = [output]
     }
   } catch (e) {
-    output = [{outcome: 'ERRORED', message: e.message}]
+    output = [{outcome: 'ERRORED', message: e}]
   } finally {
     return output
   }
@@ -34,6 +34,9 @@ var specification = {
   },
   'A simple failing test': function () {
     return assert(false)
+  },
+  'A failing test with description': function () {
+    return assert(false, 'really! I thought this might work')
   },
   'Several passing assertions': function () {
     return [
@@ -52,6 +55,9 @@ var specification = {
   }
 }
 
+var errored = []
+var failed = []
+var skipped = []
 var reporter = {
   prefix: function () {
     process.stdout.write('\n   ')
@@ -59,14 +65,39 @@ var reporter = {
   push: function (result) {
     var str = this.constants[result.outcome] || ''
     process.stdout.write(str)
+    if (result.outcome === 'ERRORED') {
+      errored.push(result)
+    }
+    if (result.outcome === 'FAILED') {
+      failed.push(result)
+    }
+    if (result.outcome === 'SKIPPED') {
+      skipped.push(result)
+    }
   },
-  suffix: function () {
+  summary: function () {
     process.stdout.write('\n\n')
+    skipped.forEach(function (result) {
+      process.stdout.write('   ')
+      process.stdout.write(chalk.yellow.bold(result.message))
+      process.stdout.write('\n')
+    })
+    errored.forEach(function (result) {
+      process.stdout.write('   ')
+      process.stdout.write(chalk.red.bold(result.message))
+      process.stdout.write('\n')
+    })
+    failed.forEach(function (result) {
+      process.stdout.write('   ')
+      process.stdout.write(chalk.red.bold(result.message))
+      process.stdout.write('\n')
+    })
+    process.stdout.write('\n')
   },
   constants: {
     'PASSED': chalk.green('.'),
-    'FAILED': chalk.red('F'),
-    'ERRORED': chalk.red('E'),
+    'FAILED': chalk.red.bold('F'),
+    'ERRORED': chalk.red.bold('E'),
     'SKIPPED': chalk.yellow('S')
   }
 }
@@ -80,4 +111,4 @@ testNames.map(function (name) {
     reporter.push(result)
   })
 })
-reporter.suffix()
+reporter.summary()
