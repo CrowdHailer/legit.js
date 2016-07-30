@@ -1,12 +1,5 @@
 const chalk = require('chalk')
 //
-// function assert (condition, description) {
-//   if (condition) {
-//     return {outcome: 'PASSED'}
-//   } else {
-//     return {outcome: 'FAILED', message: description || 'assertion invalid'}
-//   }
-// }
 //
 // function skip (reason) {
 //   return {outcome: 'SKIPPED', message: reason}
