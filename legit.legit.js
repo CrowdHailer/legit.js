@@ -2,35 +2,9 @@ const PASSED = 'passed'
 const ERRORED = 'errored'
 const FAILED = 'failed'
 
-function runTest (func) {
-  var result
-  try {
-    var output = func()
-    const assertions = Array.isArray(output) ? output : [output]
-    const passed = assertions.every((assertion) => assertion.outcome === PASSED)
-    if (passed) {
-      result = {outcome: PASSED}
-    } else {
-      result = {outcome: FAILED}
-    }
-  } catch (e) {
-    result = {outcome: ERRORED}
-  } finally {
-    return result
-  }
-}
-
-function assert (condition, description) {
-  if (condition) {
-    return {outcome: PASSED}
-  } else {
-    return {outcome: FAILED, message: description || 'assertion invalid'}
-  }
-}
-
-function runSuite (tests) {
-  return {outcome: PASSED}
-}
+var assert = require('./legit').assert
+var runTest = require('./legit').runTest
+var runSuite = require('./legit').runSuite
 
 exports['Test returning a valid assertion should pass'] = function () {
   const test = runTest(() => assert(true))
@@ -51,4 +25,8 @@ exports['Test throwing an error should be marked as error'] = function () {
 exports['Suite passes if all its tests pass'] = function () {
   const suite = runSuite({'my test': () => assert(true)})
   return assert(suite.outcome === PASSED, 'suite should have passed')
+}
+exports['Suite fails if any of its tests fail'] = function () {
+  const suite = runSuite({'my test': () => assert(false)})
+  return assert(suite.outcome === FAILED, 'suite should have passed')
 }

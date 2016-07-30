@@ -1,53 +1,6 @@
 const chalk = require('chalk')
-//
-//
-// function skip (reason) {
-//   return {outcome: 'SKIPPED', message: reason}
-// }
-//
-// function runTest (name, test) {
-//   var output
-//   try {
-//     output = test()
-//     if (Array.isArray(output)) {
-//
-//     } else {
-//       output = [output]
-//     }
-//   } catch (e) {
-//     output = [{outcome: 'ERRORED', message: e}]
-//   } finally {
-//     return output
-//   }
-// }
-//
-// var specification = {
-//   'A simple passing test': function () {
-//     return assert(true)
-//   },
-//   'A simple failing test': function () {
-//     return assert(false)
-//   },
-//   'A failing test with description': function () {
-//     return assert(false, 'really! I thought this might work')
-//   },
-//   'Several passing assertions': function () {
-//     return [
-//       assert(true),
-//       assert(true)
-//     ]
-//   },
-//   'A useless test': function () {
-//     return []
-//   },
-//   'A pending test': function () {
-//     return skip('this test is not yet ready.')
-//   },
-//   'A test that throws an error': function () {
-//     throw new Error('A test error')
-//   }
-// }
-//
+
+
 // var errored = []
 // var failed = []
 // var skipped = []
