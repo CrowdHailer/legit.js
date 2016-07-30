@@ -60,13 +60,25 @@ const chalk = require('chalk')
 // reporter.summary()
 
 // const runSuite = require('./legit').runSuite
+const CONSTANTS = require('./legit').constants
 var reporter = (function () {
+  function formatResult (result) {
+    switch (result.outcome) {
+      case CONSTANTS.PASSED:
+        return chalk.green('.')
+      case CONSTANTS.FAILED:
+        return chalk.red.bold('F')
+      case CONSTANTS.ERRORED:
+        return chalk.red.bold('E')
+    }
+  }
   var passed = true;
   return {
     intro: function () {
-      
+      process.stdout.write('\n   ')
     },
     push: function (name, result) {
+      process.stdout.write(formatResult(result))
       if (result.outcome !== 'passed') {
         console.log(name)
         passed = false

@@ -2,7 +2,6 @@ const PASSED = 'passed'
 const ERRORED = 'errored'
 const FAILED = 'failed'
 
-
 function runTest (func) {
   var result
   try {
@@ -47,3 +46,8 @@ function runSuite (tests) {
 exports.runTest = runTest
 exports.assert = assert
 exports.runSuite = runSuite
+exports.constants = {
+  PASSED: PASSED,
+  FAILED: FAILED,
+  ERRORED: ERRORED
+}
