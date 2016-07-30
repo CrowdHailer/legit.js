@@ -59,12 +59,35 @@ const chalk = require('chalk')
 // })
 // reporter.summary()
 
+// const runSuite = require('./legit').runSuite
+var reporter = (function () {
+  var passed = true;
+  return {
+    intro: function () {
+      
+    },
+    push: function (name, result) {
+      if (result.outcome !== 'passed') {
+        console.log(name)
+        passed = false
+      }
+    },
+    summary: function () {
+      console.log('finished')
+      if (!passed) {
+        process.exit(-1)
+      }
+
+    }
+  }
+}())
+
+reporter.intro()
 
 const suite = require('./legit.legit.js')
 var testNames = Object.keys(suite)
 testNames.forEach((name) => {
-  if (suite[name]().outcome !== 'passed') {
-    console.log(name)
-    process.exit(-1)
-  }
+  reporter.push(name, suite[name]())
 })
+
+reporter.summary()
